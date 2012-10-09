@@ -53,7 +53,7 @@ app.use(function (err, req, res, next) {
     res.send(err.status || 500, { error:err.message });
 });
 
-//the default client
+//Serve public assets
 app.use(express.static(__dirname + '/public/app'));
 
 // our custom JSON 404 middleware. Since it's placed last
@@ -63,24 +63,7 @@ app.use(function (req, res) {
     res.send(404, { error:"Lame, can't find that" });
 });
 
-// map of valid api keys, typically mapped to
-// account info with some sort of database like redis.
-// api keys do _not_ serve as authentication, merely to
-// track API usage or help prevent malicious behavior etc.
-
-var apiKeys = ['foo', 'bar', 'baz'];
-
-// these two objects will serve as our faux database
-
-var repos = [
-    { name:'express', url:'http://github.com/visionmedia/express' }
-    ,
-    { name:'stylus', url:'http://github.com/learnboost/stylus' }
-    ,
-    { name:'cluster', url:'http://github.com/learnboost/cluster' }
-];
-
-var users = [
+var projects = [
     { name:'tobi' }
     ,
     { name:'loki' }
@@ -88,28 +71,13 @@ var users = [
     { name:'jane' }
 ];
 
-var userRepos = {
-    tobi:[repos[0], repos[1]], loki:[repos[1]], jane:[repos[2]]
-};
-
 // we now can assume the api key is valid,
 // and simply expose the data
 
 app.get('/api/projects', function (req, res, next) {
-    res.send(users);
+    res.send(projects);
 });
 
-app.get('/api/repos', function (req, res, next) {
-    res.send(repos);
-});
-
-app.get('/api/user/:name/repos', function (req, res, next) {
-    var name = req.params.name
-        , user = userRepos[name];
-
-    if (user) res.send(user);
-    else next();
-});
 
 if (!module.parent) {
     app.listen(3000);
