@@ -1,8 +1,18 @@
 var DEFAULT_PORT_NUMBER = 3001;
-var express = require('express');
+
+var express = require('express')
+    , http = require('http')
+    , path = require('path');
 
 var app = express();
 
+app.configure(function () {
+    app.set('port', process.env.PORT || DEFAULT_PORT_NUMBER);
+    app.use(express.favicon());
+    app.use(express.logger('dev'));
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+});
 
 // create an error with .status. we
 // can then use the property in our
@@ -78,8 +88,7 @@ app.get('/api/projects', function (req, res, next) {
     res.send(projects);
 });
 
+http.createServer(app).listen(app.get('port'), function () {
+    console.log("Express server listening on port " + app.get('port'));
+});
 
-if (!module.parent) {
-    app.listen(3000);
-    console.log('Express server listening on port 3000');
-}
