@@ -29,7 +29,7 @@ describe('Controllers', function () {
 
             //After training responses, flush all pending requests
             $httpBackend.flush();
-            expect(scope.projects.length).toEqual(4);
+            expect(scope.projects.length).toEqual(2);
 
         });
     });
