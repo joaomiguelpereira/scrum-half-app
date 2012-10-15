@@ -9,7 +9,6 @@ var EventEmitter = require('events').EventEmitter
     , should = require('should')
     , methods = ['get', 'post', 'put', 'delete', 'head']
     , http = require('http')
-
     , server
     , addr;
 

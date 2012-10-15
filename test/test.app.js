@@ -1,20 +1,23 @@
-var http = require('./http');
-var app = require('../server');
-var request = require("supertest");
-
-describe('App Test suite', function () {
-
-    describe('#indexOf()', function () {
+var app = require('../api'),
+    should = require('should'),
+    request = require('./test.utils');
 
 
-        it('should have no posts', function (done) {
+describe('API Test Suit', function () {
+
+    describe('Root API', function () {
+
+
+        it('should return 404 when resource not found', function (done) {
             request(app)
-                .get('/')
-                .end(function (err, res) {
-                    res.should.have.status(200);
-                    //res.headers.location.should.include('/users');
-                    done();
-                })
-        })
-    })
+                .get('/').isJson(done, {message:"Could not find the resource"}, 404);
+        });
+
+        it("should return version", function (done) {
+            request(app).get("/version").isJson(done, {version:'0.001'});
+        });
+
+    });
+
+
 });

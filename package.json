@@ -9,7 +9,9 @@
         "should":"",
         "supertest":"",
         "underscore":"",
-        "winston":""
+        "winston":"",
+        "methods":"0.0.1",
+        "mongoose":""
 
     }
 }
