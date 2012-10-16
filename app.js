@@ -9,20 +9,21 @@ var env = process.env.NODE_ENV || 'development'
 
 //Load configuration for current configured environment
 var config = require('./app/config/config')[env];
+config.models_path = __dirname + "/app/models"
+config.controllers_path = __dirname + "/app/controllers"
+
+var router = require("./lib/router");
+
 
 //Create an express application
 var app = module.exports = express();
 
 //Bootstrap DB
-var dbBoot = require('./db.bootstrap');
+var dbBoot = require('./lib/db.bootstrap');
+
+
 dbBoot(config);
-/*
- * Load the routes from module routes.
- * Module routes is a function that loads
- */
-var loadRoutes = function (app, config) {
-    require('./routes')(app);
-}
+
 // settings
 
 // define a custom res.message() method
@@ -93,7 +94,9 @@ app.use(function (err, req, res, next) {
 });
 
 //Load routes for the application
-loadRoutes(app, config);
+//loadRoutes(app, config);
+
+router.applyRoutes(app, config);
 
 //If nor route was found, assume 404
 app.use(function (req, res, next) {
