@@ -11,7 +11,8 @@
         "underscore":"",
         "winston":"",
         "methods":"0.0.1",
-        "mongoose":""
+        "mongoose":"",
+        "express-mongoose":""
 
     }
 }

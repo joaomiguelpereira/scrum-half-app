@@ -1,7 +1,8 @@
 var mongoose = require('mongoose'),
     fs = require('fs');
 
-var boostrapDB = module.exports = function (config) {
+
+module.exports = function (config) {
     console.log('Bootstraping DB...');
     // Bootstrap db connection
     mongoose.connect(config.db);

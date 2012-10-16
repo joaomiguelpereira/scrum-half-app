@@ -13,8 +13,15 @@ var config = require('./app/config/config')[env];
 //Create an express application
 var app = module.exports = express();
 
+//Bootstrap DB
+var dbBoot = require('./db.bootstrap');
+dbBoot(config);
+/*
+ * Load the routes from module routes.
+ * Module routes is a function that loads
+ */
 var loadRoutes = function (app, config) {
-    require('./app/routes')(app, config);
+    require('./routes')(app);
 }
 // settings
 
