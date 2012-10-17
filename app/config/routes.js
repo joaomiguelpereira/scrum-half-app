@@ -5,8 +5,8 @@ var routes = [
         handler:"projectsCtrl.list"},
 
     {method:"GET",
-        path:"/projects",
-        handler:"projectsCtrl.list"}
+        path:"/version",
+        handler:"applicationCtrl.version"}
 
 ];
 

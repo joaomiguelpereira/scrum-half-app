@@ -1,7 +1,6 @@
-var app = require('../api'),
+var app = require('../app'),
     should = require('should'),
     request = require('./test.utils');
-
 
 describe('API Test Suit', function () {
 
