@@ -34,6 +34,9 @@ var request = module.exports = function (app) {
 Test.prototype.isJson = function (done, jsonObject, status) {
     this.end(hasJSON(done, jsonObject, status));
 }
+Test.prototype.hasObjects = function (done, object_count, status) {
+    this.end(countJSON(done, object_count, status))
+}
 
 
 /**Extends should API**/
@@ -74,4 +77,26 @@ var hasJSON = function (done, object, status) {
         done();
     }
     return callbackFunction;
+}
+
+var countJSON = function (done, object_count, status) {
+    status = status || 200;
+    var done = done;
+    var callbackFunction = function (err, res) {
+
+        res.should.have.status(status);
+        res.should.have.property('type', 'application/json');
+
+        var header = res.header;
+        var body = res.body;
+
+        header.should.have.property('api-version');
+        body.should.have.lengthOf(object_count);
+
+
+        done();
+    }
+    return callbackFunction;
+
+
 }

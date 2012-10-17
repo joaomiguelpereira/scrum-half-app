@@ -13,13 +13,6 @@ ProjectSchema.statics.findAll = function (callback) {
     this.find({}, promise.resolve.bind(promise));
     return promise;
 }
-ProjectSchema.statics.removeAll = function (callback) {
-    this.find({}, function (err, coll) {
-        coll.forEach(function (project) {
-            project.remove();
-        })
-    });
 
-}
 console.log('Registering Model Project...');
 mongoose.model('Project', ProjectSchema);
